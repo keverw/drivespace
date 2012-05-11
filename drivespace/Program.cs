@@ -2,43 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Linq;
 
 namespace drivespace
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-           //"PATHTOEXE\drivespace.exe" drive-C:
-            foreach (String arg in args)
-            {
-                String[] parts = arg.Split('-');
-                if (parts[0].Equals("drive"))
-                {
-                    long toalspace = 0;
-                    long freespace = 0;
-                    string status = "NOTFOUND";
+            // "PATHTOEXE\drivespace.exe" drive-C
+            var driveInfo = DriveInfo.GetDrives().ToDictionary(drive => drive.Name);
 
-                    foreach (DriveInfo drive in DriveInfo.GetDrives())
-                    {
-                        if (drive.Name == parts[1] + ":\\")
-                        {
-                            if (drive.IsReady)
-                            {
-                                toalspace = drive.TotalSize;
-                                freespace = drive.TotalFreeSpace;
-                                status = "READY";
-                            }
-                            else
-                            {
-                                status = "NOTREADY";
-                            }
-                            break;
-                        }
-                    }
-                    //TOTALSPACE,FREESPACE,STATUS
-                    Console.WriteLine(toalspace.ToString() + "," + freespace.ToString() + ',' + status);
-                }
+            foreach (var drive in args
+                .Select(arg => arg.ToUpperInvariant().Split('-'))
+                .Where(parts => (parts.Length == 2) && parts[0].Equals("DRIVE") && driveInfo.ContainsKey(parts[1] + ":\\"))
+                .Select(parts => driveInfo[parts[1] + ":\\"]))
+            {
+                // TOTALSPACE,FREESPACE,STATUS
+                Console.WriteLine(
+                    (drive.IsReady ? drive.TotalSize : 0L) + "," +
+                    (drive.IsReady ? drive.TotalFreeSpace : 0L) + "," +
+                    (drive.IsReady ? "READY" : "NOTREADY"));
             }
         }
     }

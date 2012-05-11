@@ -5,12 +5,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "drivespace", "drivespace\dr
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D74AFAEF-C9B7-4708-B3F7-E3E90757FBD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D74AFAEF-C9B7-4708-B3F7-E3E90757FBD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D74AFAEF-C9B7-4708-B3F7-E3E90757FBD2}.Debug|x86.ActiveCfg = Debug|x86
 		{D74AFAEF-C9B7-4708-B3F7-E3E90757FBD2}.Debug|x86.Build.0 = Debug|x86
+		{D74AFAEF-C9B7-4708-B3F7-E3E90757FBD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D74AFAEF-C9B7-4708-B3F7-E3E90757FBD2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D74AFAEF-C9B7-4708-B3F7-E3E90757FBD2}.Release|x86.ActiveCfg = Release|x86
 		{D74AFAEF-C9B7-4708-B3F7-E3E90757FBD2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
