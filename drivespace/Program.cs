@@ -15,14 +15,22 @@ namespace drivespace
 
             foreach (var drive in args
                 .Select(arg => arg.ToUpperInvariant().Split('-'))
-                .Where(parts => (parts.Length == 2) && parts[0].Equals("DRIVE") && driveInfo.ContainsKey(parts[1] + ":\\"))
-                .Select(parts => driveInfo[parts[1] + ":\\"]))
+                .Where(parts => (parts.Length == 2) && parts[0].Equals("DRIVE"))
+                .Select(parts => parts[1] + ":\\"))
             {
-                // TOTALSPACE,FREESPACE,STATUS
-                Console.WriteLine(
-                    (drive.IsReady ? drive.TotalSize : 0L) + "," +
-                    (drive.IsReady ? drive.TotalFreeSpace : 0L) + "," +
-                    (drive.IsReady ? "READY" : "NOTREADY"));
+                DriveInfo drive_status = null;
+                if (driveInfo.TryGetValue(drive, out drive_status))
+                {
+                    // TOTALSPACE,FREESPACE,STATUS
+                    Console.WriteLine(
+                        (drive_status.IsReady ? drive_status.TotalSize : 0L) + "," +
+                        (drive_status.IsReady ? drive_status.TotalFreeSpace : 0L) + "," +
+                        (drive_status.IsReady ? "READY" : "NOTREADY"));
+                }
+                else
+                {
+                    Console.WriteLine("0,0,NOTFOUND");
+                }
             }
         }
     }
